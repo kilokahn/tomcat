@@ -81,8 +81,10 @@ fi
 
 # Don't override the endorsed dir if the user has set it previously
 if [ -z "$JAVA_ENDORSED_DIRS" ]; then
-  # Set the default -Djava.endorsed.dirs argument
-  JAVA_ENDORSED_DIRS="$CATALINA_HOME"/endorsed
+  # Set the default -Djava.endorsed.dirs argument only if <= Java9
+  if [ ! -e "$JRE_HOME/bin/jshell" ]; then
+    JAVA_ENDORSED_DIRS="$CATALINA_HOME"/endorsed
+  fi
 fi
 
 # Set standard commands for invoking Java.
